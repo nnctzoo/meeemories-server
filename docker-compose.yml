@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  app:
+    build: .
+    environment:
+      - LANG=C.UTF-8
+      - PAGER=more
+      - RAILS_ENV=development
+    ports:
+      - 20080:3000
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/opt/meeemories:delegated
+    command: bin/rails server --binding=0.0.0.0
+  db:
+    image: postgres:10.4
+    volumes:
+      - /var/lib/postgresql/data
