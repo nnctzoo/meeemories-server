@@ -10,7 +10,8 @@ class VideosController < ApplicationController
 
   # GET /videos/1
   def show
-    render json: @video
+    hash = { :status => @video.status, :original_url => url_for(@video.video) }
+    render json: hash
   end
 
   # POST /videos
