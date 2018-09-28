@@ -51,7 +51,7 @@ class VideosController < ApplicationController
 
     # Create transcoder job
     def create_transcoder_job(video_key:)
-      require 'aws-sdk'
+      require 'aws-sdk-elastictranscoder'
       # TODO: aws configはどこか別のファイルに切り出す
       Aws.config.update({region: 'ap-northeast-1'})
 

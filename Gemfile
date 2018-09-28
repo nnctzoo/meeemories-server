@@ -44,4 +44,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
 # Use aws
-gem 'aws-sdk', require: false
+gem 'aws-sdk-s3', require: false
+gem 'aws-sdk-elastictranscoder', require: false
