@@ -1,3 +1,3 @@
 class Image < ApplicationRecord
-  has_many: sources
+  has_many :sources
 end
