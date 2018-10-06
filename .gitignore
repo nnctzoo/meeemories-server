@@ -21,3 +21,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore .env which using for secret in development environment
+/.env*
+
