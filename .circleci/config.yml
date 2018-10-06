@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  build:
+    environment:
+      repository: 767697274775.dkr.ecr.ap-northeast-1.amazonaws.com/meeemories
+    docker:
+      - image: docker/compose:1.22.0
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 17.09.0-ce
+      - run:
+          name: login
+          command: $(docker run --rm -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} kirikiriyamama/awscli --region=ap-northeast-1 ecr get-login --no-include-email)
+      - run:
+          name: build
+          command: |
+            docker pull ${repository}:latest
+            docker image build -t ${repository}:${CIRCLE_SHA1} --cache-from ${repository}:latest .
+      - run:
+          name: test
+          command: |
+            docker-compose -f docker-compose.test.yml up -d db
+            docker-compose -f docker-compose.test.yml run --rm app bundle exec rails db:create db:schema:load
+            docker-compose -f docker-compose.test.yml run --rm app bundle exec rspec
+      - run:
+          name: push
+          command: |
+            docker image push ${repository}:${CIRCLE_SHA1}
+            if [[ ${CIRCLE_BRANCH} = 'master' ]]; then
+              docker image tag ${repository}:${CIRCLE_SHA1} ${repository}:latest
+              docker image push ${repository}:latest
+            fi

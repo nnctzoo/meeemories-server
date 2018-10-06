@@ -1,0 +1,9 @@
+version: '3.2'
+services:
+  app:
+    image: ${repository}:${CIRCLE_SHA1}
+    environment:
+      - LANG=C.UTF-8
+      - RAILS_ENV=test
+  db:
+    image: postgres:10.4
