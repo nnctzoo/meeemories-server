@@ -1,5 +1,7 @@
 # VideoTranscoding is not a Media, but treated as a Media for convenience
 class VideoTranscoding < ApplicationRecord
+  has_one_attached :file
+
   def sources
     []
   end
