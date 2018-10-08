@@ -29,3 +29,7 @@ jobs:
               docker image tag ${ECR_REPOSITORY}:${CIRCLE_SHA1} ${ECR_REPOSITORY}:latest
               docker image push ${ECR_REPOSITORY}:latest
             fi
+      - run:
+          name: teardown
+          command: docker-compose -f docker-compose.test.yml down
+          when: always
