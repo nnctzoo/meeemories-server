@@ -51,13 +51,8 @@ class ContentsController < ApplicationController
       output_key = "transcode/#{video_key}.mp4"
       thumbnail_pattern = "transcode/#{video_key}-{count}"
 
-      transcoder = Aws::ElasticTranscoder::Client.new({
-        region: Rails.configuration.x.aws.region,
-        access_key_id: ENV['ACCESS_KEY_ID'],
-        secret_access_key: ENV['SECRET_ACCESS_KEY']
-      })
-
-      response = transcoder.create_job(
+      builder = TranscoderClientBuilder.new
+      response = builder.transcoder.create_job(
         pipeline_id: pipeline_id,
         input: {
             key: input_key,
