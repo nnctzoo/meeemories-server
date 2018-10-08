@@ -44,18 +44,18 @@ class ContentsController < ApplicationController
       response = et.create_job(
         pipeline_id: pipeline_id,
         input: {
-            key: input_key,
-            frame_rate: 'auto',
-            resolution: 'auto',
-            aspect_ratio: 'auto',
-            interlaced: 'auto',
-            container: 'auto'
+          key: input_key,
+          frame_rate: 'auto',
+          resolution: 'auto',
+          aspect_ratio: 'auto',
+          interlaced: 'auto',
+          container: 'auto'
         },
         output: {
-            key: output_key,
-            preset_id: preset_id_system_web,
-            thumbnail_pattern: thumbnail_pattern,
-            rotate: '0',
+          key: output_key,
+          preset_id: preset_id_system_web,
+          thumbnail_pattern: thumbnail_pattern,
+          rotate: '0',
         }
       )
 
