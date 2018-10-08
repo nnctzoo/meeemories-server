@@ -6,13 +6,13 @@ class TranscoderClientBuilder
       @transcoder = Aws::ElasticTranscoder::Client.new({
         region: Rails.configuration.x.aws.region
       })
+    else
+      @transcoder = Aws::ElasticTranscoder::Client.new({
+        region: Rails.configuration.x.aws.region,
+        access_key_id: ENV['ACCESS_KEY_ID'],
+        secret_access_key: ENV['SECRET_ACCESS_KEY']
+      })
     end
-
-    @transcoder = Aws::ElasticTranscoder::Client.new({
-      region: Rails.configuration.x.aws.region,
-      access_key_id: ENV['ACCESS_KEY_ID'],
-      secret_access_key: ENV['SECRET_ACCESS_KEY']
-    })
   end
 
 end
