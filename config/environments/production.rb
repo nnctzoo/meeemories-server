@@ -74,4 +74,9 @@ Rails.application.configure do
 
   config.x.s3.region = 'ap-northeast-1'
   config.x.s3.bucket = 'meeemories-server-production'
+
+  # AWS CONFIG
+  config.aws_region = 'ap-northeast-1'
+  config.aws_et_pipeline_id = '1537175214386-j9egwy'
+  config.aws_et_preset_id_system_web = '1351620000001-000020'
 end
