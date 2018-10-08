@@ -48,10 +48,9 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # API URL
-  config.api_url = 'http://localhost:20080'
+  config.x.api.url = 'http://localhost:20080'
 
   # AWS CONFIG
-  config.aws_region = 'ap-northeast-1'
-  config.aws_et_pipeline_id = '1538753448154-oqf805'
-  config.aws_et_preset_id_system_web = '1351620000001-000020'
+  config.x.aws.region = 'ap-northeast-1'
+  config.x.aws.et_preset_id_system_web = '1351620000001-000020'
 end

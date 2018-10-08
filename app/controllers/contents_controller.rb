@@ -45,34 +45,34 @@ class ContentsController < ApplicationController
   private
     # Create transcoder job
     def create_transcoder_job(video_key:)
-      Aws.config.update({region: Rails.configuration.aws_region})
-      pipeline_id = Rails.configuration.aws_et_pipeline_id
-      preset_id_system_web = Rails.configuration.aws_et_preset_id_system_web
+      pipeline_id = ENV['AWS_ET_PIPELINE_ID']
+      preset_id_system_web = Rails.configuration.x.aws.et_preset_id_system_web
       input_key = "#{video_key}"
       output_key = "transcode/#{video_key}.mp4"
       thumbnail_pattern = "transcode/#{video_key}-{count}"
 
       transcoder = Aws::ElasticTranscoder::Client.new({
+        region: Rails.configuration.x.aws.region,
         access_key_id: ENV['ACCESS_KEY_ID'],
         secret_access_key: ENV['SECRET_ACCESS_KEY']
       })
 
       response = transcoder.create_job(
-          pipeline_id: pipeline_id,
-          input: {
-              key: input_key,
-              frame_rate: 'auto',
-              resolution: 'auto',
-              aspect_ratio: 'auto',
-              interlaced: 'auto',
-              container: 'auto'
-          },
-          output: {
-              key: output_key,
-              preset_id: preset_id_system_web,
-              thumbnail_pattern: thumbnail_pattern,
-              rotate: '0',
-          }
+        pipeline_id: pipeline_id,
+        input: {
+            key: input_key,
+            frame_rate: 'auto',
+            resolution: 'auto',
+            aspect_ratio: 'auto',
+            interlaced: 'auto',
+            container: 'auto'
+        },
+        output: {
+            key: output_key,
+            preset_id: preset_id_system_web,
+            thumbnail_pattern: thumbnail_pattern,
+            rotate: '0',
+        }
       )
 
       return response
