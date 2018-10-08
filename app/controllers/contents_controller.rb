@@ -40,8 +40,8 @@ class ContentsController < ApplicationController
       output_key = "transcode/#{video_key}.mp4"
       thumbnail_pattern = "transcode/#{video_key}-{count}"
 
-      builder = TranscoderClientBuilder.new
-      response = builder.transcoder.create_job(
+      et = ElasticTranscoderClientBuilder.build
+      response = et.create_job(
         pipeline_id: pipeline_id,
         input: {
             key: input_key,
