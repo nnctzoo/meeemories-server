@@ -20,17 +20,6 @@ class ContentsController < ApplicationController
       @video_transcoding = VideoTranscoding.new(:file => file)
       if @video_transcoding.save
         create_transcoder_job(video_key: @video_transcoding.file.key)
-
-        @media = Video.create
-        @source = @media.sources.create({
-          width: 0,
-          height: 0,
-          mime_type: mimetype
-        })
-
-        @content = Content.new
-        @content.media = @media
-        @content.save
       else
         # TODO: error handle
         logger.error(@video_transcoding.errors)
