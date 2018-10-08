@@ -4,11 +4,6 @@ class ContentsController < ApplicationController
     render :index, formats: :json
   end
 
-  def show
-    @content = Content.find(params.require(:id))
-    render :show, formats: :json
-  end
-
   def create
     file = params.require(:file)
 
