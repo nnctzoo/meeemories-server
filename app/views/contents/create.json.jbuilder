@@ -1,4 +1,3 @@
-json.content do
-  # TODO: set polling url
-  json.url "#{Rails.configuration.x.api.url}/pollingurl"
+json.status do
+  json.url video_transcoding_url(1)
 end
