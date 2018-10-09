@@ -1,7 +1,7 @@
-json.available true
-json.sources [20, 200, 400, 800] do |size|
-  json.width size
-  json.height size
-  json.mime_type 'image/jpeg'
-  json.url "https://picsum.photos/#{size}/#{size}"
+json.available @complete
+json.sources @sources do |s|
+  json.width s.width
+  json.height s.height
+  json.mime_type s.mime_type
+  json.url s.url
 end
