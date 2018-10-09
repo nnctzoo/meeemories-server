@@ -33,7 +33,7 @@ class ContentsController < ApplicationController
       preset_id_system_web = Rails.configuration.x.aws.et_preset_id_system_web
       input_key = "#{video_key}"
       output_key = "transcode/#{video_key}.mp4"
-      thumbnail_pattern = "transcode/#{video_key}-{count}"
+      thumbnail_pattern = "video/#{video_key}-{count}"
       et = Aws::ElasticTranscoder::Client.new({region: Rails.configuration.x.aws.region})
       response = et.create_job(
         pipeline_id: pipeline_id,
