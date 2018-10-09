@@ -17,6 +17,7 @@ test:
 
 production:
   <<: *default
+  host: <%= ENV['MEEEMORIES_DATABASE_HOST'] %>
   database: meeemories_production
   username: meeemories
   password: <%= ENV['MEEEMORIES_DATABASE_PASSWORD'] %>
