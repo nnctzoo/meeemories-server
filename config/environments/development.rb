@@ -53,4 +53,5 @@ Rails.application.configure do
   # AWS CONFIG
   config.x.aws.region = 'ap-northeast-1'
   config.x.aws.et_preset_id_system_web = '1351620000001-000020'
+  config.x.aws.s3_url = 'https://s3-ap-northeast-1.amazonaws.com/meeemories-server-development'
 end
