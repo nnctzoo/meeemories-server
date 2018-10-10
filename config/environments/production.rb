@@ -71,4 +71,12 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # API Host
+  config.x.api.url = ''
+
+  # AWS CONFIG
+  config.x.aws.region = 'ap-northeast-1'
+  config.x.aws.et_preset_id_system_web = '1351620000001-000020'
+
 end

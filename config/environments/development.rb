@@ -46,4 +46,12 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # API URL
+  config.x.api.url = 'http://localhost:20080'
+
+  # AWS CONFIG
+  config.x.aws.region = 'ap-northeast-1'
+  config.x.aws.et_preset_id_system_web = '1351620000001-000020'
+  config.x.aws.s3_url = 'https://s3-ap-northeast-1.amazonaws.com/meeemories-server-development'
 end
