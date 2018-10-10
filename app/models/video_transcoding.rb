@@ -4,6 +4,10 @@ class VideoTranscoding < ApplicationRecord
     []
   end
 
+  def pending?
+    true
+  end
+
   def available?
     false
   end

@@ -1,4 +1,6 @@
+json.pending @media.pending?
 json.available @media.available?
+
 json.sources @media.sources do |source|
   json.width source.width
   json.height source.height

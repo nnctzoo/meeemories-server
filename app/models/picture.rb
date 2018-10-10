@@ -8,6 +8,10 @@ class Picture < ApplicationRecord
     self.key = key
   end
 
+  def pending?
+    false
+  end
+
   def available?
     true
   end
