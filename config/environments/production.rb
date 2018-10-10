@@ -71,4 +71,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.x.s3.region = 'ap-northeast-1'
+  config.x.s3.bucket = 'meeemories-server-production'
 end
