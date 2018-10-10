@@ -26,7 +26,9 @@ class PictureCreator
         width: width,
         height: height,
         mime_type: @mime_type,
-        url: Cloudinary::Utils.cloudinary_url("#{ENV.fetch('CLOUDINARY_FOLDER')}/picture/#{@picture.key}")
+        url: Cloudinary::Utils.cloudinary_url("#{ENV.fetch('CLOUDINARY_FOLDER')}/picture/#{@picture.key}",
+          secure: true
+        )
       )
       RESIZED_SOURCE_SIZES.each do |resized_width|
         next if width <= resized_width
@@ -39,7 +41,8 @@ class PictureCreator
           mime_type: @mime_type,
           url: Cloudinary::Utils.cloudinary_url("#{ENV.fetch('CLOUDINARY_FOLDER')}/picture/#{@picture.key}",
             width: resized_width,
-            crop: :scale
+            crop: :scale,
+            secure: true
           )
         )
       end
