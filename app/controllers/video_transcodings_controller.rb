@@ -1,6 +1,6 @@
 class VideoTranscodingsController < ApplicationController
   def show
-    # @transcoding = VideoTranscoding.find(params.require(:id))
-    render :show, formats: :json
+    @media = VideoTranscoding.find(params[:id])
+    render 'medias/show', formats: :json
   end
 end

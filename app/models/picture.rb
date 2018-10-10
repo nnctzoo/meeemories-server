@@ -7,4 +7,8 @@ class Picture < ApplicationRecord
     end while self.class.exists?(key: key)
     self.key = key
   end
+
+  def available?
+    true
+  end
 end

@@ -10,7 +10,8 @@ class ContentsController < ApplicationController
     mime_type = FileMagic.new(:mime_type).file(file.path)
     case mime_type
     when /\Aimage\//
-      PictureCreator.new(file: file, mime_type: mime_type).run
+      picture = PictureCreator.new(file: file, mime_type: mime_type).run
+      @detail = picture_path(picture)
     when /\Avideo\//
       # TODO
     else
