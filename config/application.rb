@@ -35,7 +35,7 @@ module Meeemories
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '127.0.0.1:8887', 'meeemori.es'
-        resource '*'
+        resource '*', methods: :any
       end
     end
   end
