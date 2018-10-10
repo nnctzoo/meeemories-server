@@ -1,7 +1,7 @@
 version: '3.2'
 services:
   app:
-    image: ${ECR_REPOSITORY}:${CIRCLE_SHA1}
+    image: ${ECR_REGISTRY}/meeemories:${CIRCLE_SHA1}
     environment:
       - LANG=C.UTF-8
       - RAILS_ENV=test

@@ -13,8 +13,8 @@ jobs:
       - run:
           name: build
           command: |
-            docker pull ${ECR_REPOSITORY}:latest
-            docker image build -t ${ECR_REPOSITORY}:${CIRCLE_SHA1} --cache-from ${ECR_REPOSITORY}:latest .
+            docker pull ${ECR_REGISTRY}/meeemories:latest
+            docker image build -t ${ECR_REGISTRY}/meeemories:${CIRCLE_SHA1} --cache-from ${ECR_REGISTRY}/meeemories:latest .
       - run:
           name: test
           command: |
@@ -24,11 +24,16 @@ jobs:
       - run:
           name: push
           command: |
-            docker image push ${ECR_REPOSITORY}:${CIRCLE_SHA1}
+            docker image push ${ECR_REGISTRY}/meeemories:${CIRCLE_SHA1}
             if [[ ${CIRCLE_BRANCH} = 'master' ]]; then
-              docker image tag ${ECR_REPOSITORY}:${CIRCLE_SHA1} ${ECR_REPOSITORY}:latest
-              docker image push ${ECR_REPOSITORY}:latest
+              docker image tag ${ECR_REGISTRY}/meeemories:${CIRCLE_SHA1} ${ECR_REGISTRY}/meeemories:latest
+              docker image push ${ECR_REGISTRY}/meeemories:latest
             fi
+      - run:
+          name: deploy
+          command: |
+            docker run --rm -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} ${ECR_REGISTRY}/meeemories-hako oneshot --tag=${CIRCLE_SHA1} definition/meeemories-production-fargate.jsonnet bundle exec rails db:migrate
+            docker run --rm -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} ${ECR_REGISTRY}/meeemories-hako deploy --tag=${CIRCLE_SHA1} definition/meeemories-production.jsonnet
       - run:
           name: teardown
           command: docker-compose -f docker-compose.test.yml down
