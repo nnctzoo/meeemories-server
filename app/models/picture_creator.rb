@@ -1,5 +1,5 @@
 class PictureCreator
-  S3_PREFIX = 'cloudinary/picture'
+  S3_PREFIX = 'picture'
   RESIZED_SOURCE_SIZES = [20, 200, 400, 800]
 
   def initialize(file:, mime_type:)
