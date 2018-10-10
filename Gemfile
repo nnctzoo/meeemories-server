@@ -14,6 +14,7 @@ gem 'puma', '~> 3.11'
 gem 'rack-cors'
 gem 'rack-health'
 gem 'ruby-filemagic'
+gem 'sentry-raven'
 
 group :development do
   gem 'byebug', group: :test
