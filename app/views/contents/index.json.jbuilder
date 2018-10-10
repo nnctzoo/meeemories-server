@@ -1,9 +1,9 @@
-json.contents 1..10 do |id|
-  json.id id
-  json.sources [20, 200, 400, 800] do |size|
-    json.width size
-    json.height size
-    json.mime_type 'image/jpeg'
-    json.url "https://picsum.photos/#{size}/#{size}"
+json.contents @contents do |content|
+  json.id content.id
+  json.sources content.media.sources do |source|
+    json.width source.width
+    json.height source.height
+    json.mime_type source.mime_type
+    json.url source.url
   end
 end
