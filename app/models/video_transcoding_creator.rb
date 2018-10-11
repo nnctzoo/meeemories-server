@@ -7,28 +7,30 @@ class VideoTranscodingCreator
   end
 
   def run
-    transcoding = VideoTranscoding.create!(file: @file)
+    ActiveRecord::Base.transaction do
+      @transcoding = VideoTranscoding.create!(file: @file)
 
-    key = transcoding.file.key
-    elastic_transcoder.create_job(
-      pipeline_id: ENV.fetch('AWS_ET_PIPELINE_ID'),
-      input: {
-        key: key,
-        frame_rate: 'auto',
-        resolution: 'auto',
-        aspect_ratio: 'auto',
-        interlaced: 'auto',
-        container: 'auto'
-      },
-      output: {
-        key: "#{S3_PREFIX}/#{key}.mp4",
-        preset_id: SYSTEM_WEB_PRESET_ID,
-        thumbnail_pattern: "#{S3_PREFIX}/#{key}-{count}",
-        rotate: '0'
-      }
-    )
+      response = elastic_transcoder.create_job(
+        pipeline_id: ENV.fetch('AWS_ET_PIPELINE_ID'),
+        input: {
+          key: @transcoding.file.key,
+          frame_rate: 'auto',
+          resolution: 'auto',
+          aspect_ratio: 'auto',
+          interlaced: 'auto',
+          container: 'auto'
+        },
+        output: {
+          key: "#{S3_PREFIX}/#{@transcoding.file.key}.mp4",
+          preset_id: SYSTEM_WEB_PRESET_ID,
+          thumbnail_pattern: "#{S3_PREFIX}/#{@transcoding.file.key}-{count}",
+          rotate: '0'
+        }
+      )
+      @transcoding.create_video_transcoding_job!(key: response.job.id)
+    end
 
-    transcoding
+    @transcoding
   end
 
   private

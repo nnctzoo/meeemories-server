@@ -1,0 +1,2 @@
+class VideoTranscodingJob < ApplicationRecord
+end

@@ -43,7 +43,8 @@ describe 'contents' do
       specify do
         expect {
           post '/contents', file: fixture_file_upload('spec/data/D0002100126_00000_V_000.mp4')
-        }.to change(VideoTranscoding, :count).by(1)
+        }.to  change(VideoTranscoding, :count).by(1)
+         .and change(VideoTranscodingJob, :count).by(1)
       end
     end
   end
