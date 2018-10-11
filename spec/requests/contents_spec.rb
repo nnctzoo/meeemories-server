@@ -34,7 +34,7 @@ describe 'contents' do
         post '/contents', file: fixture_file_upload('spec/data/ai_pet_family.png') # 800x604
       }.to  change(Content, :count).by(1)
        .and change(Picture, :count).by(1)
-       .and change(Source,  :count).by(4) # 20x, 200x, 400x, Original
+       .and change(Source, :count).by(4) # 20x, 200x, 400x, Original
     end
   end
 end
