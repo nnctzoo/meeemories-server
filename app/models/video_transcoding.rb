@@ -11,7 +11,7 @@ class VideoTranscoding < ApplicationRecord
   end
 
   def pending?
-    video.nil?
+    video.nil? || video_transcoding_errors.nil?
   end
 
   def available?

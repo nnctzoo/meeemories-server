@@ -3,5 +3,6 @@ Rails.application.routes.draw do
 
   resources :pictures, only: [:show]
   resources :video_transcodings, only: [:show]
+  resources :video_transcoding_errors, only: [:create]
   resources :videos, only: [:show, :create]
 end
