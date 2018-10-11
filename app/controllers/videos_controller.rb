@@ -1,6 +1,6 @@
 class VideosController < ApplicationController
   def create
     VideoCreator.new(params.require(:Message)).run
-    render :create, formats: :json
+    head 200
   end
 end
