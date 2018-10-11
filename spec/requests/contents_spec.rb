@@ -35,8 +35,6 @@ describe 'contents' do
       }.to  change(Content, :count).by(1)
        .and change(Picture, :count).by(1)
        .and change(Source,  :count).by(4) # 20x, 200x, 400x, Original
-
-      expect(last_response.status).to eq 200
     end
   end
 end
