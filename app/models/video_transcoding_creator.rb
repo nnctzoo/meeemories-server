@@ -1,5 +1,4 @@
 class VideoTranscodingCreator
-  S3_PREFIX = 'video'
   SYSTEM_WEB_PRESET_ID = '1351620000001-000020'
 
   def initialize(file:)
@@ -21,9 +20,9 @@ class VideoTranscodingCreator
           container: 'auto'
         },
         output: {
-          key: "#{S3_PREFIX}/#{@transcoding.file.key}.mp4",
+          key: "video/#{@transcoding.file.key}.mp4",
           preset_id: SYSTEM_WEB_PRESET_ID,
-          thumbnail_pattern: "#{S3_PREFIX}/#{@transcoding.file.key}-{count}",
+          thumbnail_pattern: "video_thumbnail/#{@transcoding.file.key}-{count}",
           rotate: '0'
         }
       )
