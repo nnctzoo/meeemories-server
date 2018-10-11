@@ -1,4 +1,4 @@
-# VideoTranscoding is not a Media, but treated as a Media for convenience
+# VideoTranscoding is not Media, but treated as Media for convenience
 class VideoTranscoding < ApplicationRecord
   def sources
     []
