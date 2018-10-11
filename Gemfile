@@ -5,9 +5,11 @@ ruby '2.5.1'
 gem 'rails', '~> 5.2.1'
 
 gem 'aws-sdk-elastictranscoder'
+gem 'aws-sdk-sns'
 gem 'aws-sdk-s3'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jbuilder', '~> 2.5'
+gem 'json'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'rack-health'

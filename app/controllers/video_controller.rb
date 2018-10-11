@@ -5,7 +5,7 @@ class VideoController < ApplicationController
       logger.debug "Subscribe URL: #{@subscribe_url}"
       render json: {}, status: 200
     elsif request.headers['x-amz-sns-message-type'] == 'Notification'
-      @result = params.require(:outputs)[0].permit(:key, :thumbnailPattern, :width, :height)
+      @result = JSON.parse(params.permit(:Message)[:Message])['outputs'][0]
 
       @media = Video.create
       # video source
