@@ -23,7 +23,7 @@ class VideoCreator
         width: @output['width'],
         height: @output['height'],
         mime_type: VIDEO_MIME_TYPE,
-        url: "#{Rails.configuration.x.s3.host}/#{@output['key']}"
+        url: "#{Rails.configuration.x.cloudfront.host}/#{@output['key'].sub(/\Avideo\//, '')}"
       )
 
       # Thumbnail

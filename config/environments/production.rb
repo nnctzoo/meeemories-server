@@ -74,7 +74,8 @@ Rails.application.configure do
 
   config.x.s3.region = 'ap-northeast-1'
   config.x.s3.bucket = 'meeemories-server-production'
-  config.x.s3.host   = "https://#{config.x.s3.bucket}.s3-#{config.x.s3.region}.amazonaws.com"
+
+  config.x.cloudfront.host = 'https://d1gj7hiu75b85u.cloudfront.net'
 
   config.x.elastic_transcoder.region = 'ap-northeast-1'
 end
