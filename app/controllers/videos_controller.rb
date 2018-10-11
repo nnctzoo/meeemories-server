@@ -12,6 +12,12 @@ class VideosController < ApplicationController
       end
     end
 
+    if request.headers['x-amz-sns-message-type'] == 'SubscriptionConfirmation'
+      @subscribe_url = params.permit(:SubscribeURL)
+      logger.debug "Subscribe URL: #{@subscribe_url}"
+      head 200 and return
+    end
+
     VideoCreator.new(params.require(:Message)).run
     head 200
   end
