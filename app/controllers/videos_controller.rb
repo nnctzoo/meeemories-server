@@ -1,4 +1,4 @@
-class VideoController < ApplicationController
+class VideosController < ApplicationController
   def create
     @result = params.require(:outputs)[0].permit(:key, :thumbnailPattern, :width, :height)
 
