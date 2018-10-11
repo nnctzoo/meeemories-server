@@ -18,12 +18,12 @@ describe 'contents' do
     context 'When the parameter after is specified' do
       specify do
         contents = create_list(:content, 3)
-        get '/contents', after: contents[0].id
+        get '/contents', after: contents[2].id
 
         body = JSON.parse(last_response.body)
         expect(body['contents'].count).to eq 2
-        expect(body['contents'][0]['id']).to eq contents[2].id
-        expect(body['contents'][1]['id']).to eq contents[1].id
+        expect(body['contents'][0]['id']).to eq contents[1].id
+        expect(body['contents'][1]['id']).to eq contents[0].id
       end
     end
   end
