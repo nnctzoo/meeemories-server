@@ -1,6 +1,8 @@
 class PictureCreator
-  S3_PREFIX = 'picture'
   RESIZED_SOURCE_SIZES = [20, 200, 400, 800]
+
+  S3_PREFIX = 'picture'
+  CLOUDINARY_FOLDER = "#{ENV.fetch('CLOUDINARY_FOLDER_PREFIX')}/picture"
 
   def initialize(file:, mime_type:)
     @file = file
@@ -21,29 +23,21 @@ class PictureCreator
       )
 
       width, height = FastImage.size(@file.path)
-      Source.create!(
-        media: @picture,
+      @picture.sources.create!(
         width: width,
         height: height,
         mime_type: @mime_type,
-        url: Cloudinary::Utils.cloudinary_url("#{ENV.fetch('CLOUDINARY_FOLDER')}/picture/#{@picture.key}",
-          secure: true
-        )
+        url: Cloudinary::Utils.cloudinary_url(cloudinary_id, secure: true)
       )
       RESIZED_SOURCE_SIZES.each do |resized_width|
         next if width <= resized_width
 
         ratio = resized_width.to_f / width
-        Source.create!(
-          media: @picture,
+        @picture.sources.create!(
           width: resized_width,
           height: (height * ratio).to_i,
           mime_type: @mime_type,
-          url: Cloudinary::Utils.cloudinary_url("#{ENV.fetch('CLOUDINARY_FOLDER')}/picture/#{@picture.key}",
-            width: resized_width,
-            crop: :scale,
-            secure: true
-          )
+          url: Cloudinary::Utils.cloudinary_url(cloudinary_id, width: resized_width, crop: :scale, secure: true)
         )
       end
 
@@ -63,5 +57,9 @@ class PictureCreator
       else
         Aws::S3::Client.new(region: Rails.configuration.x.s3.region)
       end
+  end
+
+  def cloudinary_id
+    @cloudinary_id ||= "#{CLOUDINARY_FOLDER}/#{@picture.key}"
   end
 end

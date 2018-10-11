@@ -6,6 +6,6 @@ services:
       - LANG=C.UTF-8
       - RAILS_ENV=test
       - CLOUDINARY_CLOUD_NAME=xxxxx
-      - CLOUDINARY_FOLDER=xxxxx
+      - CLOUDINARY_FOLDER_PREFIX=xxxxx
   db:
     image: postgres:10.4
