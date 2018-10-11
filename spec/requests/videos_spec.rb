@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 describe 'videos' do
+  describe 'GET /videos/:id' do
+    specify do
+      video = create(:video)
+
+      get "/videos/#{video.id}"
+      expect(last_response.status).to eq 200
+    end
+  end
+
   describe 'POST /videos' do
     specify do
       job = create(:video_transcoding_job)

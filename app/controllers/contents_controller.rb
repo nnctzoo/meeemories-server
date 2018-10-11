@@ -15,7 +15,8 @@ class ContentsController < ApplicationController
       picture = PictureCreator.new(file: file, mime_type: mime_type).run
       @detail = picture_path(picture)
     when /\Avideo\//
-      VideoTranscodingCreator.new(file: file).run
+      transcoding = VideoTranscodingCreator.new(file: file).run
+      @detail = video_transcoding_path(transcoding)
     else
       head 400 and return
     end
