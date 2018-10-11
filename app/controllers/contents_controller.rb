@@ -1,7 +1,7 @@
 class ContentsController < ApplicationController
   def index
     @contents = Content.order(id: :desc).limit(20)
-    @contents = @contents.where(Content.arel_table[:id].lt(params[:after].to_i)) if params[:after].present?
+    @contents = @contents.where(Content.arel_table[:id].lt(params[:before].to_i)) if params[:before].present?
 
     render :index, formats: :json
   end

@@ -15,10 +15,10 @@ describe 'contents' do
       end
     end
 
-    context 'When the parameter after is specified' do
+    context 'When the parameter before is specified' do
       specify do
         contents = create_list(:content, 3)
-        get '/contents', after: contents[2].id
+        get '/contents', before: contents[2].id
 
         body = JSON.parse(last_response.body)
         expect(body['contents'].count).to eq 2
