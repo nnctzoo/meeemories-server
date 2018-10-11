@@ -1,6 +1,6 @@
 class ContentsController < ApplicationController
   def index
-    @contents = Content.order(id: :desc).limit(20)
+    @contents = Content.preload(media: :sources).order(id: :desc).limit(20)
     @contents = @contents.where(Content.arel_table[:id].lt(params[:before].to_i)) if params[:before].present?
 
     render :index, formats: :json
