@@ -2,7 +2,7 @@ class VideoCreator
   VIDEO_MIME_TYPE = 'video/mp4'
   THUMBNAIL_MIME_TYPE = 'image/png'
 
-  RESIZED_THUBMNAIL_WIDTH = 20
+  RESIZED_THUBMNAIL_WIDTHS = [20, 200, 400]
 
   CLOUDINARY_FOLDER = "#{ENV.fetch('CLOUDINARY_FOLDER_PREFIX')}/video_thumbnail"
 
@@ -35,17 +35,21 @@ class VideoCreator
       )
 
       # Resized thumbnail
-      ratio = RESIZED_THUBMNAIL_WIDTH / thumbnail_dimensions[0].to_f
-      @video.sources.create!(
-        width: RESIZED_THUBMNAIL_WIDTH,
-        height: (thumbnail_dimensions[1] * ratio).to_i,
-        mime_type: THUMBNAIL_MIME_TYPE,
-        url: Cloudinary::Utils.cloudinary_url("#{CLOUDINARY_FOLDER}/#{thumbnail_key}",
-          width: RESIZED_THUBMNAIL_WIDTH,
-          crop: :scale,
-          secure: true
+      RESIZED_THUBMNAIL_WIDTHS.each do |resized_width|
+        next if @output['width'].to_i <= resized_width
+
+        ratio = resized_width / thumbnail_dimensions[0].to_f
+        @video.sources.create!(
+          width: resized_width,
+          height: (thumbnail_dimensions[1] * ratio).to_i,
+          mime_type: THUMBNAIL_MIME_TYPE,
+          url: Cloudinary::Utils.cloudinary_url("#{CLOUDINARY_FOLDER}/#{thumbnail_key}",
+            width: resized_width,
+            crop: :scale,
+            secure: true
+          )
         )
-      )
+      end
 
       Content.create!(media: @video)
     end
