@@ -64,7 +64,8 @@ class VideoCreator
   end
 
   def thumbnail_key
-    @thumbnail_key ||= "#{@output['thumbnailPattern'].sub(/\{count\}/, '00001')}.png"
+    @thumbnail_key ||=
+      "#{@output['thumbnailPattern'].sub(/\Avideo_thumbnail\//, '').sub(/\{count\}/, '00001')}.png"
   end
 
   def thumbnail_dimensions
