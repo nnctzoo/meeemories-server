@@ -1,10 +1,8 @@
 class VideoTranscodingErrorsController < ApplicationController
   def create
-    if Rails.env.production?
-      verifier = Aws::SNS::MessageVerifier.new
-      unless verifier.authentic?(request.body.string)
-        head 400 and return
-      end
+    verifier = Aws::SNS::MessageVerifier.new
+    unless verifier.authentic?(request.body.string)
+      head 400 and return
     end
 
     VideoTranscodingErrorCreator.new(params.require(:Message)).run

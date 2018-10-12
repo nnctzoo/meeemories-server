@@ -12,6 +12,10 @@ describe 'videos' do
 
   describe 'POST /videos' do
     specify do
+      verifier = instance_double(Aws::SNS::MessageVerifier)
+      allow(Aws::SNS::MessageVerifier).to receive(:new) { verifier }
+      allow(verifier).to receive(:authentic?) { true }
+
       job = create(:video_transcoding_job)
 
       expect {

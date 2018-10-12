@@ -5,11 +5,9 @@ class VideosController < ApplicationController
   end
 
   def create
-    if Rails.env.production?
-      verifier = Aws::SNS::MessageVerifier.new
-      unless verifier.authentic?(request.body.string)
-        head 400 and return
-      end
+    verifier = Aws::SNS::MessageVerifier.new
+    unless verifier.authentic?(request.body.string)
+      head 400 and return
     end
 
     if request.headers['x-amz-sns-message-type'] == 'SubscriptionConfirmation'
