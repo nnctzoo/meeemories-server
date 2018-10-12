@@ -11,6 +11,8 @@ class VideoTranscodingErrorCreator
     @video_transcoding_error = VideoTranscodingError.create!(error_code: @error_code, video_transcoding_id: job.video_transcoding_id)
   end
 
+  private
+
   def verify_message!
     raise InvalidState if @message['state'] != 'ERROR'
   end
