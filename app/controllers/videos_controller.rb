@@ -1,4 +1,6 @@
 class VideosController < ApplicationController
+  before_action :handle_sns_request, only: :create
+
   def show
     @media = Video.find(params[:id])
     render 'medias/show', formats: :json
