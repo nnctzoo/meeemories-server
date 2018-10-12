@@ -29,12 +29,23 @@ describe 'contents' do
   end
 
   describe 'POST /contents' do
-    specify do
-      expect {
-        post '/contents', file: fixture_file_upload('spec/data/ai_pet_family.png') # 800x604
-      }.to  change(Content, :count).by(1)
-       .and change(Picture, :count).by(1)
-       .and change(Source, :count).by(4) # 20x, 200x, 400x, Original
+    context 'When the MIME Type is image/png' do
+      specify do
+        expect {
+          post '/contents', file: fixture_file_upload('spec/data/ai_pet_family.png') # 800x604
+        }.to  change(Content, :count).by(1)
+         .and change(Picture, :count).by(1)
+         .and change(Source, :count).by(4) # 20x, 200x, 400x, Original
+      end
+    end
+
+    context 'When the MIME Type is video/mp4' do
+      specify do
+        expect {
+          post '/contents', file: fixture_file_upload('spec/data/D0002100126_00000_V_000.mp4')
+        }.to  change(VideoTranscoding, :count).by(1)
+         .and change(VideoTranscodingJob, :count).by(1)
+      end
     end
   end
 end

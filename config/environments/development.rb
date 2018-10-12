@@ -49,4 +49,8 @@ Rails.application.configure do
 
   config.x.s3.region = 'ap-northeast-1'
   config.x.s3.bucket = 'meeemories-server-development'
+
+  config.x.cloudfront.host = 'https://d2n7utt8vecpcl.cloudfront.net'
+
+  config.x.elastic_transcoder.region = 'ap-northeast-1'
 end

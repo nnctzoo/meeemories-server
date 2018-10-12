@@ -7,5 +7,6 @@ services:
       - RAILS_ENV=test
       - CLOUDINARY_CLOUD_NAME=xxxxx
       - CLOUDINARY_FOLDER_PREFIX=xxxxx
+      - AWS_ET_PIPELINE_ID=xxxxx
   db:
     image: postgres:10.4
