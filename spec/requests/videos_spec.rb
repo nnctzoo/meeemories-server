@@ -49,7 +49,7 @@ describe 'videos' do
         )
       }.to  change(Content, :count).by(1)
        .and change(Video, :count).by(1)
-       .and change(Source, :count).by(3) # Video, Thumbnail, Resized thumbnail
+       .and change(Source, :count).by(5) # Video, Thumbnail, 20w thumbnail, 200w thumbnail, 400w thumbnail
 
       expect(job.video_transcoding).not_to be_pending
       expect(job.video_transcoding).to be_available

@@ -2,7 +2,7 @@ class VideoCreator
   VIDEO_MIME_TYPE = 'video/mp4'
   THUMBNAIL_MIME_TYPE = 'image/png'
 
-  RESIZED_THUBMNAIL_WIDTH = 20
+  RESIZED_THUBMNAIL_WIDTHS = [20, 200, 400]
 
   CLOUDINARY_FOLDER = "#{ENV.fetch('CLOUDINARY_FOLDER_PREFIX')}/video_thumbnail"
 
@@ -35,17 +35,19 @@ class VideoCreator
       )
 
       # Resized thumbnail
-      ratio = RESIZED_THUBMNAIL_WIDTH / thumbnail_dimensions[0].to_f
-      @video.sources.create!(
-        width: RESIZED_THUBMNAIL_WIDTH,
-        height: (thumbnail_dimensions[1] * ratio).to_i,
-        mime_type: THUMBNAIL_MIME_TYPE,
-        url: Cloudinary::Utils.cloudinary_url("#{CLOUDINARY_FOLDER}/#{thumbnail_key}",
-          width: RESIZED_THUBMNAIL_WIDTH,
-          crop: :scale,
-          secure: true
+      RESIZED_THUBMNAIL_WIDTHS.each do |resized_width|
+        ratio = resized_width / thumbnail_dimensions[0].to_f
+        @video.sources.create!(
+          width: resized_width,
+          height: (thumbnail_dimensions[1] * ratio).to_i,
+          mime_type: THUMBNAIL_MIME_TYPE,
+          url: Cloudinary::Utils.cloudinary_url("#{CLOUDINARY_FOLDER}/#{thumbnail_key}",
+            width: resized_width,
+            crop: :scale,
+            secure: true
+          )
         )
-      )
+      end
 
       Content.create!(media: @video)
     end
@@ -69,14 +71,14 @@ class VideoCreator
   end
 
   def thumbnail_dimensions
-    # 192x108 (16:9)
+    # 480x854 (9:16)
     @thumbnail_dimensions ||=
-      if (@output['width'] / 16.0) > (@output['height'] / 9.0)
-        ratio = 192.0 / @output['width']
-        [192, (@output['height'] * ratio).to_i]
+      if (@output['width'] / 9.0) > (@output['height'] / 16.0)
+        ratio = 480.0 / @output['width']
+        [480, (@output['height'] * ratio).to_i]
       else
-        ratio = 108.0 / @output['height']
-        [(@output['width'] * ratio).to_i, 108]
+        ratio = 854.0 / @output['height']
+        [(@output['width'] * ratio).to_i, 854]
       end
   end
 
