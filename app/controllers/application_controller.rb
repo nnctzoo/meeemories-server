@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication::Basic::ControllerMethods
-
-  http_basic_authenticate_with name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD'] if ENV['USE_BASIC_AUTH'] == 'TRUE'
+  before_action :basic_authentication, if: -> { ENV['USE_BASIC_AUTH'] == 'TRUE' }
 
   private
 
@@ -19,5 +18,11 @@ class ApplicationController < ActionController::API
 
   def sns_request_data
     @sns_request_data ||= JSON.parse(request.body.string)
+  end
+
+  def basic_authentication
+    authenticate_or_request_with_http_basic do |username, password|
+      username == ENV['BASIC_AUTH_USERNAME'] && password == ENV['BASIC_AUTH_PASSWORD']
+    end
   end
 end

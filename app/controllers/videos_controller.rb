@@ -1,5 +1,6 @@
 class VideosController < ApplicationController
   before_action :handle_sns_request, only: :create
+  skip_before_action :basic_authentication, only: :create
 
   def show
     @media = Video.find(params[:id])
