@@ -16,4 +16,6 @@ class VideoTranscodingErrorCreator
   def verify_message!
     raise InvalidState if @message['state'] != 'ERROR'
   end
+
+  InvalidState = Class.new(StandardError)
 end
