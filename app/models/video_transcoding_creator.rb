@@ -23,7 +23,7 @@ class VideoTranscodingCreator
           key: "video/#{@transcoding.file.key}.mp4",
           preset_id: SYSTEM_WEB_PRESET_ID,
           thumbnail_pattern: "video_thumbnail/#{@transcoding.file.key}-{count}",
-          rotate: '0'
+          rotate: 'auto'
         }
       )
       @transcoding.create_video_transcoding_job!(key: response.job.id)
