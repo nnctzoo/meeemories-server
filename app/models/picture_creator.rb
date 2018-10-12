@@ -1,5 +1,5 @@
 class PictureCreator
-  RESIZED_SOURCE_SIZES = [20, 200, 400, 800]
+  RESIZED_SOURCE_WIDTHS = [20, 200, 400, 800]
 
   S3_PREFIX = 'picture'
   CLOUDINARY_FOLDER = "#{ENV.fetch('CLOUDINARY_FOLDER_PREFIX')}/picture"
@@ -29,7 +29,7 @@ class PictureCreator
         mime_type: @mime_type,
         url: Cloudinary::Utils.cloudinary_url(cloudinary_id, angle: :exif, secure: true)
       )
-      RESIZED_SOURCE_SIZES.each do |resized_width|
+      RESIZED_SOURCE_WIDTHS.each do |resized_width|
         next if width <= resized_width
 
         ratio = resized_width.to_f / width
