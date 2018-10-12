@@ -23,7 +23,7 @@ class VideoCreator
         width: @output['width'],
         height: @output['height'],
         mime_type: VIDEO_MIME_TYPE,
-        url: "#{Rails.configuration.x.cloudfront.host}/#{@output['key'].sub(/\Avideo\//, '')}"
+        url: "#{Rails.configuration.x.cloudfront.host}/#{video_key}"
       )
 
       # Thumbnail
@@ -57,6 +57,10 @@ class VideoCreator
 
   def verify_message!
     raise InvalidState if @message['state'] != 'COMPLETED'
+  end
+
+  def video_key
+    @video_key ||= @output['key'].sub(/\Avideo\//, '')
   end
 
   def thumbnail_key
