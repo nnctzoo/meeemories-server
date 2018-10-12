@@ -8,8 +8,7 @@ class ApplicationController < ActionController::API
     end
 
     if request.headers['x-amz-sns-message-type'] == 'SubscriptionConfirmation'
-      @subscribe_url = params.permit(:SubscribeURL)
-      logger.debug "Subscribe URL: #{@subscribe_url}"
+      Net::HTTP.get(URI.parse(params[:SubscribeURL]))
       head 200 and return
     end
   end
