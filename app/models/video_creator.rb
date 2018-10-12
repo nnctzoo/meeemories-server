@@ -69,14 +69,14 @@ class VideoCreator
   end
 
   def thumbnail_dimensions
-    # 192x108 (16:9)
+    # 480x854 (9:16)
     @thumbnail_dimensions ||=
-      if (@output['width'] / 16.0) > (@output['height'] / 9.0)
-        ratio = 192.0 / @output['width']
-        [192, (@output['height'] * ratio).to_i]
+      if (@output['width'] / 9.0) > (@output['height'] / 16.0)
+        ratio = 480.0 / @output['width']
+        [480, (@output['height'] * ratio).to_i]
       else
-        ratio = 108.0 / @output['height']
-        [(@output['width'] * ratio).to_i, 108]
+        ratio = 854.0 / @output['height']
+        [(@output['width'] * ratio).to_i, 854]
       end
   end
 
