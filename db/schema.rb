@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_12_055715) do
+ActiveRecord::Schema.define(version: 2018_10_12_055909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2018_10_12_055715) do
 
   create_table "video_transcoding_errors", force: :cascade do |t|
     t.bigint "video_transcoding_id", null: false
-    t.string "error_code"
+    t.string "error_code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["video_transcoding_id"], name: "index_video_transcoding_errors_on_video_transcoding_id", unique: true
