@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2018_10_11_172614) do
   create_table "video_transcoding_errors", force: :cascade do |t|
     t.bigint "video_transcoding_id", null: false
     t.string "key", null: false
+    t.string "error_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_video_transcoding_errors_on_key", unique: true
