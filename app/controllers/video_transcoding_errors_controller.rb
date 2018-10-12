@@ -1,10 +1,7 @@
 class VideoTranscodingErrorsController < ApplicationController
-  def create
-    verifier = Aws::SNS::MessageVerifier.new
-    unless verifier.authentic?(request.body.string)
-      head 400 and return
-    end
+  before_action :handle_sns_request, only: :create
 
+  def create
     VideoTranscodingErrorCreator.new(params.require(:Message)).run
     head 200
   end
