@@ -36,8 +36,6 @@ class VideoCreator
 
       # Resized thumbnail
       RESIZED_THUBMNAIL_WIDTHS.each do |resized_width|
-        next if @output['width'].to_i <= resized_width
-
         ratio = resized_width / thumbnail_dimensions[0].to_f
         @video.sources.create!(
           width: resized_width,
