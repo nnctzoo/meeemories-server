@@ -8,8 +8,12 @@ class ApplicationController < ActionController::API
     end
 
     if request.headers['x-amz-sns-message-type'] == 'SubscriptionConfirmation'
-      Net::HTTP.get(URI.parse(params[:SubscribeURL]))
+      Net::HTTP.get(URI.parse(sns_request_data['SubscribeURL']))
       head 200 and return
     end
+  end
+
+  def sns_request_data
+    @sns_request_data ||= JSON.parse(request.body.string)
   end
 end

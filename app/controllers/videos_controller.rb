@@ -7,7 +7,7 @@ class VideosController < ApplicationController
   end
 
   def create
-    VideoCreator.new(params.require(:Message)).run
+    VideoCreator.new(sns_request_data['Message']).run
     head 200
   end
 end

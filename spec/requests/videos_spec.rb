@@ -46,10 +46,7 @@ describe 'videos' do
               height: 480
             }]
           )
-        ),
-        {
-          'CONTENT_TYPE' => 'application/json'
-        }
+        )
       }.to  change(Content, :count).by(1)
        .and change(Video, :count).by(1)
        .and change(Source, :count).by(3) # Video, Thumbnail, Resized thumbnail

@@ -17,10 +17,7 @@ describe 'video_transcoding_errors' do
             messageDetails: 'Validation Error',
             jobId: job.key
           )
-        ),
-        {
-          'CONTENT_TYPE' => 'application/json'
-        }
+        )
       }.to change(VideoTranscodingError, :count).by(1)
 
       expect(job.video_transcoding).not_to be_pending
