@@ -36,14 +36,16 @@ jobs:
       - run:
           name: deploy
           command: |
-            docker run --rm \
-              -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
-              -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
-              ${ECR_REGISTRY}/meeemories-hako oneshot --tag=${CIRCLE_SHA1} definition/meeemories-production.jsonnet bundle exec rails db:migrate
-            docker run --rm \
-              -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
-              -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
-              ${ECR_REGISTRY}/meeemories-hako deploy --tag=${CIRCLE_SHA1} definition/meeemories-production.jsonnet
+            if [[ ${CIRCLE_BRANCH} = 'master' ]]; then
+              docker run --rm \
+                -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
+                -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
+                ${ECR_REGISTRY}/meeemories-hako oneshot --tag=${CIRCLE_SHA1} definition/meeemories-production.jsonnet bundle exec rails db:migrate
+              docker run --rm \
+                -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
+                -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
+                ${ECR_REGISTRY}/meeemories-hako deploy --tag=${CIRCLE_SHA1} definition/meeemories-production.jsonnet
+            fi
       - run:
           name: teardown
           command: docker-compose -f docker-compose.test.yml down
