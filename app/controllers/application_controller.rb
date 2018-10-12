@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::API
+  include ActionController::HttpAuthentication::Basic::ControllerMethods
+
+  http_basic_authenticate_with name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD'] if ENV['USE_BASIC_AUTH'] == 'TRUE'
+
   private
 
   def handle_sns_request
