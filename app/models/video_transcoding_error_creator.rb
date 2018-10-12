@@ -8,7 +8,7 @@ class VideoTranscodingErrorCreator
     verify_message!
 
     job = VideoTranscodingJob.find_by!(key: @message['jobId'])
-    @video_transcoding_error = VideoTranscodingError.create!(error_code: @error_code, video_transcoding_id: job.video_transcoding_id)
+    VideoTranscodingError.create!(error_code: @error_code, video_transcoding_id: job.video_transcoding_id)
   end
 
   private
