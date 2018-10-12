@@ -27,7 +27,7 @@ class PictureCreator
         width: width,
         height: height,
         mime_type: @mime_type,
-        url: Cloudinary::Utils.cloudinary_url(cloudinary_id, secure: true)
+        url: Cloudinary::Utils.cloudinary_url(cloudinary_id, angle: :exif, secure: true)
       )
       RESIZED_SOURCE_SIZES.each do |resized_width|
         next if width <= resized_width
@@ -37,7 +37,12 @@ class PictureCreator
           width: resized_width,
           height: (height * ratio).to_i,
           mime_type: @mime_type,
-          url: Cloudinary::Utils.cloudinary_url(cloudinary_id, width: resized_width, crop: :scale, secure: true)
+          url: Cloudinary::Utils.cloudinary_url(cloudinary_id,
+            angle: :exif,
+            width: resized_width,
+            crop: :scale,
+            secure: true
+          )
         )
       end
 
